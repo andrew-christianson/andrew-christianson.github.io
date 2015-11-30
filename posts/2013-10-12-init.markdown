@@ -1,0 +1,107 @@
+--- 
+layout: post
+title: "Init"
+date: 2013-10-12 10:57
+comments: true
+categories: 
+---
+<div>
+  <style type="text/css">
+    .bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px;	/* Gets overriden by D3-assigned height below */
+				margin-right: 2px;
+				background-color: teal;
+				fill: steelblue;
+    }
+  </style>
+</div>
+<script type="text/javascript" src="/javascripts/d3.js"></script>
+<div id='chart-1'></div>
+<script type="text/javascript">
+
+  var data = [1, 1, 2, 3, 5, 8];
+
+  // var margin = {top: 40, right: 40, bottom: 40, left: 40},
+  //     width = $('.entry-content').width(),
+  //     height = 300;
+
+</script>
+<script type='text/javascript'>
+			var dataset = [ 25, 7, 5, 26, 11 ];
+			
+			d3.select("#chart-1").selectAll("div")
+				.data(dataset)
+				.enter()
+				.append("div")
+				.attr("class", "bar")
+				.style("height", function(d) {
+					var barHeight = d * 5;
+					return barHeight + "px";
+				});	
+
+
+// (function() {
+
+//   function draw() {
+
+//     $('#chart-1').empty();
+
+//     var x = d3.scale.linear()
+//         .domain([0, d3.max(data)])
+//         .range([0, width - margin.left - margin.right]);
+
+//     var y = d3.scale.ordinal()
+//         .domain(d3.range(data.length))
+//         .rangeRoundBands([height - margin.top - margin.bottom, 0], 0.2);
+
+//     var xAxis = d3.svg.axis()
+//         .scale(x)
+//         .orient('bottom')
+//         .tickPadding(8);
+
+//     var yAxis = d3.svg.axis()
+//         .scale(y)
+//         .orient('left')
+//         .tickPadding(8)
+//         .tickSize(1);
+
+//     var svg = d3.select('#chart-1').append('svg')
+//         .attr('width', width)
+//         .attr('height', height)
+//         .attr('class', 'chart')
+//         .append('g')
+//         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+//     svg.selectAll('.chart')
+//         .data(data)
+//         .enter().append('rect')
+//         .attr('class', 'bar')
+//         .attr('y', function(d, i) { return y(i) })
+//         .attr('width', x)
+//         .attr('height', y.rangeBand());
+//         // .attr('width', 700)
+//         // .attr('height', 300)
+
+//     svg.append('g')
+//         .attr('class', 'x axis')
+//         .attr('transform', 'translate(0, ' + y.rangeExtent()[1] + ')')
+//         .call(xAxis);
+
+//     svg.append('g')
+//         .attr('class', 'y axis')
+//         .call(yAxis)
+//       .selectAll('text')
+//         .text(function(d) { return String.fromCharCode(d + 65); });
+
+//   }
+
+//   draw();
+
+//   $(window).resize(function() {
+//     draw();
+//   });
+
+// })();
+</script>
