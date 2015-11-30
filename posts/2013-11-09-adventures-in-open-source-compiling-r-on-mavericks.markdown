@@ -7,6 +7,7 @@ comments: true
 These are the things that happen when I get bored.  For a time I've had a checkout of R's source code sitting around, simply because such a thing is nifty to have.  A lazy, slightly hungover Saturday morning though prompted me to try and compile it, just for shits-and-giggles.  Also, to see if I could.
 
 Initially, I had checked out the code from the the mirror maintained by [wch](http://www.github.com/wch).  However, it transpired that part of the make script checks if R is being built from an svn checkout, and fails otherwise. So, it's best to start with and svn checkout, available at svn.r-project.com/R/.  Thus run:
+
 ```bash
 $ svn checkout http://svn.r-project.org/R/trunk your_dir
 ```
@@ -18,13 +19,13 @@ $ svn checkout http://svn.r-project.org/R/tags/R-3-0-2 your_dir
 
 Move on gathering the dependencies.  Fortunately I had gcc and gfortan installed from previous projects.  Insure that gcc is up to date by installing the latest Xcode and updating the command line utilities.  Note that in the Mavericks version of Xcode, the command line tools don't appear to be in their usual place on the Preferences > Downloads tab. I forced the install with :
 
-```
+```bash
 $ xcode-select --install
 ```
 
 which started the update, and prompted an command line tools up to appear in the App Store.  I'm not sure precisely what happened.  Gfotran is available from the [tools](http://cran.r-project.org/bin/macosx/tools/) page on CRAN. Regardless once
 
-```
+```bash
 $ gcc --version
 $ gfortran --version
 ```
@@ -60,7 +61,7 @@ Simple as that.
 
 If you want to install system wide as a framework, run:
 
-```bash
+```haskell
 # build the docs first
 $ make info
 $ make pdf
