@@ -1,24 +1,34 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
-import           Hakyll
+import Data.Monoid (mappend)
+import Hakyll
+import Text.Pandoc
 
 
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+    match "static/*/*" $ do
+      route idRoute
+      compile copyFileCompiler
+
+    match "assets/*" $ do
+      route idRoute
+      compile copyFileCompiler
+
     match "images/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+      route idRoute
+      compile copyFileCompiler
 
     match "css/*" $ do
-        route   idRoute
-        compile compressCssCompiler
+      route idRoute
+      compile copyFileCompiler
 
-    match (fromList ["about.rst", "contact.markdown"]) $ do
+    match (fromList ["about.md", "contact.markdown", "about.rst"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= loadAndApplyTemplate "templates/page.html" siteCtx
+            >>= loadAndApplyTemplate "templates/default.html" siteCtx
             >>= relativizeUrls
 
     match "posts/*" $ do
@@ -35,7 +45,7 @@ main = hakyll $ do
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
-                    defaultContext
+                    siteCtx
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -50,7 +60,7 @@ main = hakyll $ do
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
-                    defaultContext
+                    siteCtx
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -64,4 +74,14 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
+    siteCtx 
+
+siteCtx :: Context String
+siteCtx = 
+    constField "site_description" "Uninformed Prior" `mappend`
+    constField "site_title" "Uninformed Prior" `mappend`
+    constField "instagram_username" "drewkristjansson" `mappend`
+    constField "twitter_username" "drewkristjansson" `mappend`
+    constField "github_username" "andrew-christianson" `mappend`
+    constField "google_username" "kristjansson" `mappend`
     defaultContext
