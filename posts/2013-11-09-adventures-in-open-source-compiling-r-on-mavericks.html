@@ -2,41 +2,197 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>My Hakyll Blog - Adventures in Open Source: Compiling R on Mavericks</title>
-        <link rel="stylesheet" type="text/css" href="../css/default.css" />
-    </head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Microsoft Internet Explorer documentMode compatMode setting IE Modus -->
+    <script type="text/javascript">
+     var IE = null;
+     if (window.navigator.appName == "Microsoft Internet Explorer") {
+         if (document.documentMode) {
+             IE = document.documentMode;
+         } else {
+             IE = 5;
+             if (document.compatMode) {
+                 if (document.compatMode == "CSS1Compat")
+                     IE = 11; 
+             }
+         }
+     }
+    </script>
+
+    <meta charset="utf-8">
+    <!-- X-UA --> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <link rel="author" title="Katy Chuang" href="https://plus.google.com/u/0/111391719267336703432/posts" />
+    <meta name="google" content="notranslate" />
+    <!-- Viewport --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- index ROBOTS follow --> 
+    <meta name="robots" content="index, follow" />
+    <!-- Site Desciption --> 
+    <meta name="description" content="Uninformed Prior">
+    <!-- Site Desciption --> 
+    <meta name="keywords" content="Andrew Christianson, Drew Christianson, kristjansson, data science, r-project, statistics">
+    <!-- Favicon --> 
+    <link rel="shortcut icon" href="../images/initials-38x38.jpg" type="image/x-icon" />
+    <!-- Blog Title -->
+    <title>Uninformed Prior</title>
+
+    <!-- Property Metas -->
+    <meta property="og:image" content="/images/ix.png" />
+    <meta property="og:title" content="Uninformed Prior" />
+    <meta property="og:site_name" content="Uninformed Prior" />
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ page.url }}">
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/spaceg.stylesheets.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+    <link href="../css/site.css" rel="stylesheet" type="text/css">
+    <link href="../css/pandoc.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+         <![endif]-->
+    <!-- end Loading front stylesheet here --> 
+</head>
+
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href="../">My Hakyll Blog</a>
-            </div>
-            <div id="navigation">
-                <a href="../">Home</a>
-                <a href="../about.html">About</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../archive.html">Archive</a>
+        <div id="preloader">
+            <div id="status"></div>
+        </div>
+        <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand" d="blog-title-left-top">AC</a>
+        </div>   
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#portfolioModal2" data-toggle="modal"><i class="fa fa-random" id="icon-top"></i></a>
+                    <ul class="dropdown-menu"></ul>
+                </li>
+                <li><a href="https://instagram.com/drewkristjansson/" target="_blank"><i class="fa fa-instagram" id="icon-top"></i></a></li>
+                <li><a href="../about.html" target="_blank">About</a></li>
+                <li><a href="../contact.html" target="_blank">Contact</a></li>
+
+                <li><a href="../archive.html">Archive</a></li>
+                <li><a href="https://www.twitter.com/drewkristjansson" id="roundbutton" target="_blank"><i class="fa fa-twitter"></i>drewkristjansson</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Portfolio Modals -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
             </div>
         </div>
-
-        <div id="content">
-            <h1>Adventures in Open Source: Compiling R on Mavericks</h1>
-
-            <div class="info">
-    Posted on November  9, 2013
-    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h1 class="font-style-inline-small-h1">Lucas Gatsas</h1>
+                        <hr class="star-primary">
+                        <img src="../images/kc.jpg" class="img-responsive img-centered" alt title>
+                        <p class="font-style-inline-small">
+                            <a href="https://www.twitter.com/drewkristjansson" target="_blank">follow me</a>. <br>
+                            <a href="https://www.github.com/andrew-christianson" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a>
+                            <a href="https://www.twitter.com/drewkristjansson" target="_blank"><i class="fa fa-twitter" id="spaceg-social-modal"></i> </a>
+                        </p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Menu Modals Add New Sa.21.Feb.2015 03:22:25 -->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right:0px; overflow: hidden;">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h1 class="font-style-inline-small-h1">k.c</h1>
+                        <hr class="star-primary">
+                        <p class="font-style-inline-small">
+                            <a href="https://www.twitter.com/drewkristjansson" target="_blank">follow</a>. <br> 
+                            <a href="https://www.github.com/andrew-christianson" target="_blank">    <i class="fa fa-github" id="spaceg-social-modal"></i> </a> 
+                            <a href="https://www.twitter.com/drewkristjansson" target="_blank"><i class="fa fa-twitter" id="spaceg-social-modal"></i> </a>    
+                            <li><a href="../">Home</a></li>
+                            <li><a href="../about.html">About Me</a></li>
+                            <li><a href="../archive.html/">Archive</a></li>
+                        </p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p>These are the things that happen when I get bored. For a time I’ve had a checkout of R’s source code sitting around, simply because such a thing is nifty to have. A lazy, slightly hungover Saturday morning though prompted me to try and compile it, just for shits-and-giggles. Also, to see if I could.</p>
+
+        <div id="content"> <!-- Post Header -->
+<header class="intro-header" style="background-image: url('')" alt title>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Adventures in Open Source: Compiling R on Mavericks</h1>
+                    
+                    <span class="meta">
+                        
+                        November  9, 2013
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>These are the things that happen when I get bored. For a time I’ve had a checkout of R’s source code sitting around, simply because such a thing is nifty to have. A lazy, slightly hungover Saturday morning though prompted me to try and compile it, just for shits-and-giggles. Also, to see if I could.</p>
 <p>Initially, I had checked out the code from the the mirror maintained by <a href="http://www.github.com/wch">wch</a>. However, it transpired that part of the make script checks if R is being built from an svn checkout, and fails otherwise. So, it’s best to start with and svn checkout, available at svn.r-project.com/R/. Thus run:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">svn</span> checkout http://svn.r-project.org/R/trunk your_dir</code></pre></div>
 <p>To checkout the latest code to <em>your_dir</em>. To get a specific version, e.g. R-3.0.2, run:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">svn</span> checkout http://svn.r-project.org/R/tags/R-3-0-2 your_dir</code></pre></div>
 <p>Move on gathering the dependencies. Fortunately I had gcc and gfortan installed from previous projects. Insure that gcc is up to date by installing the latest Xcode and updating the command line utilities. Note that in the Mavericks version of Xcode, the command line tools don’t appear to be in their usual place on the Preferences &gt; Downloads tab. I forced the install with :</p>
-<pre><code>$ xcode-select --install</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">xcode-select</span> --install</code></pre></div>
 <p>which started the update, and prompted an command line tools up to appear in the App Store. I’m not sure precisely what happened. Gfotran is available from the <a href="http://cran.r-project.org/bin/macosx/tools/">tools</a> page on CRAN. Regardless once</p>
-<pre><code>$ gcc --version
-$ gfortran --version</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">gcc</span> --version
+$ <span class="kw">gfortran</span> --version</code></pre></div>
 <p>display versions &gt;= 4.6.2 it’s good to go.</p>
 <p>R requires tcl/tk on all platforms; it should have come packaged with OSX 10.9. If errors appear in the compilation steps, packaged Tcl/tk installs are available on the same <a href="http://cran.r-project.org/bin/macosx/tools/">tools</a> page.</p>
 <p>R also requires a functioning X11 window system; the one included with OSX isn’t always friendly, so it is necessary to download a replacement. The natural choice is <a href="http://xquartz.macosforge.org/landing/">Xquartz</a>. The installer recommends restarting or logging out and back in - this step is necessary if Xquartz has not been installed before!</p>
@@ -50,20 +206,107 @@ $ gfortran --version</code></pre>
 <p>should check that everything has worked as expected.</p>
 <p>Simple as that.</p>
 <p>If you want to install system wide as a framework, run:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># build the docs first</span>
-$ <span class="kw">make</span> info
-$ <span class="kw">make</span> pdf
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="st"># build the docs first</span>
+<span class="fu">$</span> make info
+<span class="fu">$</span> make pdf
 
-$ <span class="kw">make</span> install
-$ <span class="kw">make</span> install-info
-$ <span class="kw">make</span> install-pdf</code></pre></div>
+<span class="fu">$</span> make install
+<span class="fu">$</span> make install<span class="fu">-</span>info
+<span class="fu">$</span> make install<span class="fu">-</span>pdf</code></pre></div>
 <p>though I wouldn’t recommend installing at the system level unless you’ve built one of the stable versions.</p>
-<p>Note: most of this comes from the INSTALL readme included with the source. However I felt like documenting the experience so it’s here now too.</p>
+<p>Note: most of this comes from the INSTALL readme included with the source. However I felt like documenting the experience so it’s here now too.</p>	
+                <hr>
+                <ul class="pager">
+                    
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</article>
+<hr>
+ </div>
+        <div id="footer"> </div>
+        <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="assets/feed.xml" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://twitter.com/drewkristjansson" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://plus.google.com/u/0/111391719267336703432/posts" data-datatype="json" data-type="GET" data-target="#frame" class="reload" id="clickme" target="_blank">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                     
+                     
+                    <li>
+                        <a href="https://github.com/andrew-christianson" target="_blank">
+                            <span class="fa-stack fa-lg">
 
+                                <i class="fa fa-arrow-circle-o-down"></i>
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="https://instagram.com/drewkristjansson" target="_blank">
+                            <span class="fa-stack fa-lg">
+
+                                <i class="fa fa-arrow-circle-o-down"></i>
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; Andrew Christianson 2015. <br><br>
+                </p>
+                <div class="col-md-12">
+                    <p class="copyright text-muted">
+                        Site generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>. Modified from
+                        <a href="https://github.com/katychuang/hakyll-cssgarden">Hakyll-CleanMagic</a> </p>
+                </div>
+            </div>
         </div>
-        <div id="footer">
-            Site proudly generated by
-            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
-        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="../assets/jquery.min.js"></script>
+<script src="../assets/spaceg.stylesheets.min.js"></script> 
+<script src="../assets/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="../assets/scripts.js"></script>
+
+
+
     </body>
 </html>
