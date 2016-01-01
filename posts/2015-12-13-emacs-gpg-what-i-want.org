@@ -1,0 +1,27 @@
+* Goals
+My demands are simple. I want to keep my GPG key on a hardware device (Yubikey
+in my case), use gpg-agent and the hardware key as my SSH key, and have
+gpg-agent do the expected thing in all cases, whether I'm sitting at in an at a
+shell, in emacs, or SSH'ed from a remote device. Is that really too much to ask?
+* How I accomplished this
+I have no idea if this is the best solution to this problem, but it's.  There
+are many solutions like it, but this is my own.
+** Generating the key
+Contray to some other guides, this was the easiest part for me.  For recent
+enoguh gpg and yubikey, =gpg --card-edit= supports =generate= command that
+generates a key directly on the card.  No part of the secret key ever touches
+your machine.  From here, you can use the Yubikey as storage for a secure
+offline key, used to sign subkeys for day-to-day use, though there may be some
+hurdles involved in having some secret parts of the key on your machine, and
+some parts only on the card.  I chose simply to use the smartcard as my
+day-to-day.
+
+Note that this approach is slightly riskier than the offline key approach, as
+you can't
+**
+
+
+* Links
+http://unix.stackexchange.com/questions/42900/best-practices-for-ssh-tmux-gnupg-agent
+https://elpa.gnu.org/packages/pinentry.html
+https://wiki.archlinux.org/index.php/GnuPG#pinentry
