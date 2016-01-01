@@ -4,10 +4,34 @@ import Data.Monoid (mappend)
 import Hakyll
 import Text.Pandoc
 
+import           System.Process   (system)
+import           Data.List        (isPrefixOf, isSuffixOf)
+import           System.FilePath  (isAbsolute, normalise, takeFileName)
 
 --------------------------------------------------------------------------------
+cfg :: Configuration
+cfg = Configuration {
+  destinationDirectory = "_site"
+  , storeDirectory       = "_cache"
+  , tmpDirectory         = "_cache/tmp"
+  , providerDirectory    = "."
+  , ignoreFile           = ignoreFile'
+  , deployCommand        = "rsync -avz _site deploy && cd deploy && git add . && git commit -m \"$(date)\""
+  , deploySite           = system . deployCommand
+  , inMemoryCache        = True
+  , previewHost          = "127.0.0.1"
+  , previewPort          = 8000
+  } where
+  ignoreFile' path
+    | "."    `isPrefixOf` fileName = True
+    | "#"    `isPrefixOf` fileName = True
+    | "~"    `isSuffixOf` fileName = True
+    | ".swp" `isSuffixOf` fileName = True
+    | otherwise                    = False
+    where
+      fileName = takeFileName path
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith cfg $ do
     match "static/*/*" $ do
       route idRoute
       compile copyFileCompiler
