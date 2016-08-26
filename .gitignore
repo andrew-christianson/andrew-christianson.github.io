@@ -1,4 +1,5 @@
 .cabal-sandbox
+.stack-work
 _site
 _cache
 dist
