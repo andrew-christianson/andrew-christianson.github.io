@@ -1,4 +1,0 @@
-[submodule "deploy"]
-	path = deploy
-	url = https://github.com/andrew-christianson/andrew-christianson.github.io
-	branch = master
