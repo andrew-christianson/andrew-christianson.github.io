@@ -105,7 +105,7 @@ siteCtx =
     constField "site_description" "Uninformed Prior" `mappend`
     constField "site_title" "Uninformed Prior" `mappend`
     constField "instagram_username" "drewkristjansson" `mappend`
-    constField "twitter_username" "drewkristjansson" `mappend`
+    constField "twitter_username" "drewkristjanson" `mappend`
     constField "github_username" "andrew-christianson" `mappend`
     constField "google_username" "kristjansson" `mappend`
     defaultContext
